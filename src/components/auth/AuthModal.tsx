@@ -60,8 +60,7 @@ export function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthModalProp
 
   const [googleScriptLoaded, setGoogleScriptLoaded] = useState(false);
   const [googleInitialized, setGoogleInitialized] = useState(false);
-  const googleLoginRef = useRef<HTMLDivElement>(null);
-  const googleRegisterRef = useRef<HTMLDivElement>(null);
+  const googleButtonRef = useRef<HTMLDivElement>(null);
   const reset = () => { setError(''); setSuccess(''); setLoading(false); };
   const changeMode = (m: AuthModalMode) => { reset(); onModeChange(m); };
 
@@ -111,7 +110,7 @@ export function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthModalProp
   // Google: render button when mode or initialization changes
   useEffect(() => {
     if (!googleInitialized || !GOOGLE_CLIENT_ID) return;
-    const ref = mode === 'login' ? googleLoginRef : googleRegisterRef;
+    const ref = googleButtonRef;
     const timer = setTimeout(() => {
       const div = ref.current;
       if (!div || !window.google?.accounts?.id) return;
@@ -350,7 +349,7 @@ export function AuthModal({ isOpen, onClose, mode, onModeChange }: AuthModalProp
                   </div>
                 </div>
                 <div
-                  ref={mode === 'login' ? googleLoginRef : googleRegisterRef}
+                  ref={googleButtonRef}
                   className="flex justify-center min-h-[44px]"
                 />
               </>
