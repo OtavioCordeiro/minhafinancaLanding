@@ -1,0 +1,82 @@
+---
+const APP_URL = import.meta.env.PUBLIC_APP_URL ?? '';
+---
+
+<section class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-16">
+  <!-- Blobs decorativos -->
+  <div
+    class="pointer-events-none absolute top-1/4 right-0 w-[520px] h-[420px] rounded-full opacity-25"
+    style="background: #43BE17; filter: blur(200px);"
+  ></div>
+  <div
+    class="pointer-events-none absolute bottom-1/4 left-0 w-[400px] h-[350px] rounded-full opacity-15"
+    style="background: #43BE17; filter: blur(180px);"
+  ></div>
+  <div
+    class="pointer-events-none absolute inset-0"
+    style="background: rgba(255,255,255,0.55);"
+  ></div>
+  <!-- Textura de pontos -->
+  <div
+    class="pointer-events-none absolute inset-0 opacity-30"
+    style="background-image: url('/bolinha.png'); background-size: 18px 18px;"
+  ></div>
+
+  <!-- Conteúdo principal -->
+  <div class="relative z-10 flex flex-col items-center text-center px-4 md:px-8 max-w-3xl mx-auto">
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-5" style="font-family: 'Inter', sans-serif;">
+      Menos estresse com dinheiro.<br />
+      <span style="color: #43BE17;">Mais tranquilidade</span> no dia a dia.
+    </h1>
+    <p class="text-lg md:text-xl text-gray-500 mb-8 max-w-xl leading-relaxed">
+      Você no controle do seu dinheiro, não o contrário.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-3">
+      <a
+        href={`${APP_URL}/registro`}
+        class="px-7 py-3.5 text-white font-semibold rounded-full text-base transition-opacity hover:opacity-90 shadow-lg"
+        style="background: #43BE17;"
+      >
+        Começar Grátis
+      </a>
+      <a
+        href="#recursos"
+        class="px-7 py-3.5 font-semibold rounded-full text-base transition-colors hover:bg-gray-50 border border-gray-300 text-gray-700"
+      >
+        Ver Demonstração
+      </a>
+    </div>
+  </div>
+
+  <!-- Dashboard mockups -->
+  <div class="relative z-10 w-full max-w-6xl mx-auto mt-14 px-4 flex items-end justify-center gap-4">
+    <!-- Widget esquerda (só desktop) -->
+    <div class="hidden lg:block shrink-0 self-center mb-8" style="width: 10%;">
+      <img
+        src="/Widget - Dados.png"
+        alt="Widget de dados"
+        class="w-full max-w-[300px] drop-shadow-lg"
+      />
+    </div>
+
+    <!-- Dashboard central -->
+    <div class="flex-1 max-w-4xl">
+      <img
+        src="/Glass - Dashboard.png"
+        alt="Dashboard Minha Finança"
+        class="w-full rounded-2xl shadow-2xl"
+        style="filter: drop-shadow(0 24px 60px rgba(0,0,0,0.18));"
+      />
+    </div>
+
+    <!-- Mockup celular (esconde em telas pequenas) -->
+    <div class="hidden md:block shrink-0 self-end" style="width: 3%; min-width: 160px; max-width: 290px;">
+      <img
+        src="/Mockup - Celular.png"
+        alt="App mobile"
+        class="w-full hover:-translate-y-2 transition-transform duration-500"
+      />
+    </div>
+  </div>
+</section>

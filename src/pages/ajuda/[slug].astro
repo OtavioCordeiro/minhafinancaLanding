@@ -1,0 +1,25 @@
+---
+import { getCollection, render } from 'astro:content';
+import Article from '../../layouts/Article.astro';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('ajuda');
+  return guides.map((guide) => ({
+    params: { slug: guide.id },
+    props: { guide },
+  }));
+}
+
+const { guide } = Astro.props;
+const { Content } = await render(guide);
+---
+
+<Article
+  title={guide.data.title}
+  description={guide.data.description}
+  category={guide.data.category}
+  backHref="/ajuda"
+  backLabel="Central de Ajuda"
+>
+  <Content />
+</Article>

@@ -1,0 +1,63 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+const guides = (await getCollection('ajuda')).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99)
+);
+
+const byCategory = guides.reduce<Record<string, typeof guides>>((acc, guide) => {
+  const cat = guide.data.category;
+  if (!acc[cat]) acc[cat] = [];
+  acc[cat].push(guide);
+  return acc;
+}, {});
+---
+
+<Base
+  title="Central de Ajuda — Minha Finança"
+  description="Guias passo a passo para usar todos os recursos do Minha Finança."
+>
+  <Navbar />
+
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-28 pb-16">
+    <div class="mb-10">
+      <h1 class="text-4xl font-bold text-gray-900 mb-2">Central de Ajuda</h1>
+      <p class="text-gray-500 text-lg">Guias passo a passo para usar o Minha Finança</p>
+    </div>
+
+    <div class="space-y-10">
+      {Object.entries(byCategory).map(([category, items]) => (
+        <div>
+          <h2 class="text-sm font-semibold uppercase tracking-widest text-[#43BE17] mb-4">
+            {category}
+          </h2>
+          <div class="grid gap-3 sm:grid-cols-2">
+            {items.map((guide) => (
+              <a
+                href={`/ajuda/${guide.id}`}
+                class="group flex items-start gap-3 rounded-xl border border-gray-100 hover:border-[#43BE17]/30 bg-white hover:shadow-md transition-all p-5"
+              >
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#43BE17]/10 text-[#43BE17] text-lg mt-0.5">
+                  📄
+                </div>
+                <div>
+                  <p class="font-semibold text-gray-900 group-hover:text-[#43BE17] transition-colors leading-snug">
+                    {guide.data.title}
+                  </p>
+                  <p class="text-sm text-gray-500 mt-0.5 leading-relaxed line-clamp-2">
+                    {guide.data.description}
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </main>
+
+  <Footer />
+</Base>

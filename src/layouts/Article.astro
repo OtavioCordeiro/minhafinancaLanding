@@ -1,0 +1,82 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  publishDate?: Date;
+  category?: string;
+  backHref: string;
+  backLabel: string;
+}
+
+const { title, description, publishDate, category, backHref, backLabel } = Astro.props;
+
+const formattedDate = publishDate
+  ? new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long' }).format(publishDate)
+  : null;
+---
+
+<Base title={`${title} — Minha Finança`} description={description}>
+  <div class="min-h-screen bg-gray-50">
+    <!-- Navbar simples para artigos -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-200">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center gap-4">
+        <a href="/" class="flex items-center gap-2 shrink-0">
+          <img src="/Logocortadaembaixo.png" alt="Minha Finança" class="h-7" />
+        </a>
+        <span class="text-gray-300">/</span>
+        <a href={backHref} class="text-sm text-gray-500 hover:text-primary transition-colors truncate">
+          {backLabel}
+        </a>
+        <span class="text-gray-300">/</span>
+        <span class="text-sm text-gray-700 font-medium truncate">{title}</span>
+      </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+      <!-- Header do artigo -->
+      <div class="mb-8">
+        {category && (
+          <span class="inline-block text-xs font-semibold uppercase tracking-wide text-primary bg-primary/10 px-3 py-1 rounded-full mb-3">
+            {category}
+          </span>
+        )}
+        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mb-3">
+          {title}
+        </h1>
+        <p class="text-lg text-gray-500 leading-relaxed">{description}</p>
+        {formattedDate && (
+          <p class="text-sm text-gray-400 mt-3">{formattedDate}</p>
+        )}
+      </div>
+
+      <!-- Divisor -->
+      <hr class="border-gray-200 mb-8" />
+
+      <!-- Conteúdo MDX -->
+      <div class="prose prose-gray max-w-none
+        prose-headings:font-semibold prose-headings:text-gray-900
+        prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
+        prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3
+        prose-p:text-gray-600 prose-p:leading-relaxed
+        prose-li:text-gray-600
+        prose-ol:space-y-2
+        prose-img:rounded-xl prose-img:shadow-md prose-img:border prose-img:border-gray-200
+        prose-strong:text-gray-800
+        prose-a:text-primary prose-a:no-underline hover:prose-a:underline">
+        <slot />
+      </div>
+
+      <!-- Voltar -->
+      <div class="mt-12 pt-6 border-t border-gray-200">
+        <a
+          href={backHref}
+          class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-primary transition-colors font-medium"
+        >
+          ← Voltar para {backLabel}
+        </a>
+      </div>
+    </main>
+  </div>
+</Base>

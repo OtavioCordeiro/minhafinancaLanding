@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import { LandingApp } from '../components/LandingApp';
+import type { Plan } from '../types';
+
+let initialPlans: Plan[] = [];
+try {
+  const backendUrl = import.meta.env.BACKEND_TARGET;
+  const res = await fetch(`${backendUrl}/api/landingpage/plans`);
+  if (res.ok) initialPlans = await res.json();
+} catch {
+  // Backend unavailable at build time — plans will load client-side fallback
+}
+---
+
+<Base>
+  <LandingApp client:load initialPlans={initialPlans} />
+</Base>
