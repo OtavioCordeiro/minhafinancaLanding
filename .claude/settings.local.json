@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm run build)"
+      "Bash(npm run build)",
+      "Bash(rm CTASection.tsx StatsSection.tsx AnimatedSection.tsx FAQ.tsx Features.tsx Testimonials.tsx figma/ImageWithFallback.tsx)",
+      "Bash(rmdir figma *)"
     ]
   }
 }
