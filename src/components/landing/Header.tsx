@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 
 interface HeaderProps {
   onOpenRegisterModal: () => void;
+  onOpenLoginModal: () => void;
 }
 
 const NAV_LINKS = [
@@ -12,7 +13,7 @@ const NAV_LINKS = [
   { label: 'FAQ',         href: '#faq'         },
 ];
 
-export function Header({ onOpenRegisterModal }: HeaderProps) {
+export function Header({ onOpenRegisterModal, onOpenLoginModal }: HeaderProps) {
   return (
     <motion.header
       className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-6 px-4"
@@ -51,7 +52,7 @@ export function Header({ onOpenRegisterModal }: HeaderProps) {
 
         <button
           type="button"
-          onClick={onOpenRegisterModal}
+          onClick={onOpenLoginModal}
           className="flex-shrink-0 px-5 py-2 text-white text-base font-semibold rounded-full hover:opacity-90 transition-opacity cursor-pointer"
           style={{ background: '#43BE17' }}
         >

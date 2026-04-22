@@ -28,9 +28,14 @@ export function LandingApp({ initialPlans }: LandingAppProps = {}) {
     setIsAuthModalOpen(true);
   };
 
+  const handleOpenLoginModal = () => {
+    setAuthMode('login');
+    setIsAuthModalOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-white">
-      <Header onOpenRegisterModal={handleOpenRegisterModal} />
+      <Header onOpenRegisterModal={handleOpenRegisterModal} onOpenLoginModal={handleOpenLoginModal} />
       <HeroSection onOpenRegisterModal={handleOpenRegisterModal} />
       <VideoSection />
       <MicroMessages />
